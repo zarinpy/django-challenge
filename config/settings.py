@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -24,7 +24,8 @@ SECRET_KEY = 'fbwxxxwbwquhot@oq=(=y9)avsi37fssd+j6q#b9i)wnah=+3m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+MEDIA_URL = "/media/"
+MEDIA_ROOT = str(ROOT_DIR / "media")
 ALLOWED_HOSTS = []
 
 
@@ -37,7 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',
+    'drf_spectacular',
+    'rest_framework_simplejwt',
+
     'modules.domain.apps.DomainConfig',
+    'modules.accounts.apps.AccountsConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -122,4 +130,18 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AUTH_USER_MODEL = "domain.User"
+AUTH_USER_MODEL = 'domain.User'
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated'],
+}
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Django challenge',
+    'SCHEMA_PATH_PREFIX': '/api/v[0-9]',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
+STATIC_ROOT = str(ROOT_DIR / ".assets")
