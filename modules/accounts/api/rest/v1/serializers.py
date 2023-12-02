@@ -1,10 +1,12 @@
 from django.contrib.auth.models import update_last_login
+from django.db.utils import IntegrityError
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken
-from django.db.utils import IntegrityError
+
 from modules.domain.models import User
-from rest_framework.exceptions import ValidationError
+
 
 class SignUpSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=100, required=True, write_only=True)

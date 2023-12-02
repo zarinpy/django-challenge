@@ -1,13 +1,17 @@
-from rest_framework import viewsets, decorators, status, response, exceptions, views
-from rest_framework.parsers import JSONParser
-from django.utils import timezone
 from datetime import timedelta
-from rest_framework.permissions import AllowAny, IsAuthenticated
+
+from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
-from modules.domain.models import Seat, Match, Stadium, Reservation
-from modules.seats.api.rest.v1.filters import SeatFilter
-from modules.seats.api.rest.v1.serializers import SeatSerializer, ReserveSerializer
 from drf_spectacular.views import extend_schema
+from rest_framework import (decorators, exceptions, response, status, views,
+                            viewsets)
+from rest_framework.parsers import JSONParser
+from rest_framework.permissions import AllowAny, IsAuthenticated
+
+from modules.domain.models import Match, Reservation, Seat, Stadium
+from modules.seats.api.rest.v1.filters import SeatFilter
+from modules.seats.api.rest.v1.serializers import (ReserveSerializer,
+                                                   SeatSerializer)
 
 
 class SeatViewSet(viewsets.ReadOnlyModelViewSet):

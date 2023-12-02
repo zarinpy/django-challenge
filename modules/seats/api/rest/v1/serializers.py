@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from modules.domain.models import Seat, Reservation, Match
+from modules.domain.models import Match, Reservation, Seat
 
 
 class SeatSerializer(serializers.ModelSerializer):

@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from modules.domain.models import (Basket, Match, Reservation, Seat, Stadium,
-                                    User)
+                                   User)
 
 
 @admin.register(Match)
