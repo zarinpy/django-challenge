@@ -1,4 +1,3 @@
-from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from modules.accounts.api.rest.v1.views import LoginView, SignUpView

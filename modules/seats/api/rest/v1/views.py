@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.views import extend_schema
-from rest_framework import (decorators, exceptions, response, status, views,
+from rest_framework import (exceptions, response, status, views,
                             viewsets)
 from rest_framework.parsers import JSONParser
 from rest_framework.permissions import AllowAny, IsAuthenticated
