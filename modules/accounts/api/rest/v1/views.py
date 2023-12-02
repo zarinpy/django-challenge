@@ -1,5 +1,6 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
+from rest_framework.parsers import JSONParser
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -14,12 +15,14 @@ class SignUpView(GenericViewSet, CreateModelMixin):
     queryset = User.objects.all()
     serializer_class = SignUpSerializer
     permission_classes = [AllowAny]
+    parser_classes = [JSONParser]
 
 
 class LoginView(GenericViewSet, CreateModelMixin):
     queryset = User.objects.all()
     serializer_class = LoginSerializer
     permission_classes = [AllowAny]
+    parser_classes = [JSONParser]
 
     @extend_schema(request=LoginSerializer)
     def create(self, request, *args, **kwargs):

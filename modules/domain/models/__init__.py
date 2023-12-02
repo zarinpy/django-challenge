@@ -1,2 +1,2 @@
+from .stadium import Basket, Match, Reservation, Seat, Stadium
 from .user import User
-from .stadium import Stadium, Seat, Basket, Reservation, Ticket, Match

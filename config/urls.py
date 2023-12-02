@@ -31,4 +31,5 @@ urlpatterns = [
 urlpatterns += [
     path('admin/', admin.site.urls),
     path('api/v1/auth/', include('modules.accounts.api.rest.v1.urls')),
+    path('api/v1/seats/', include('modules.seats.api.rest.v1.urls')),
 ]

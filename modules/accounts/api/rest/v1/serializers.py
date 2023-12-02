@@ -2,9 +2,9 @@ from django.contrib.auth.models import update_last_login
 from rest_framework import serializers
 from rest_framework_simplejwt.settings import api_settings
 from rest_framework_simplejwt.tokens import RefreshToken
-
+from django.db.utils import IntegrityError
 from modules.domain.models import User
-
+from rest_framework.exceptions import ValidationError
 
 class SignUpSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=100, required=True, write_only=True)
@@ -17,14 +17,17 @@ class SignUpSerializer(serializers.ModelSerializer):
         fields = ['username', 'password', 'first_name', 'last_name']
 
     def create(self, validated_data):
-        user = User.objects.create_user(
-            username=validated_data['username'],
-            first_name=validated_data['first_name'],
-            last_name=validated_data['last_name']
-        )
-        user.set_password(validated_data['password'])
-        user.save()
-        return user
+        try:
+            user = User.objects.create_user(
+                username=validated_data['username'],
+                first_name=validated_data['first_name'],
+                last_name=validated_data['last_name']
+            )
+            user.set_password(validated_data['password'])
+            user.save()
+            return user
+        except IntegrityError:
+            raise ValidationError("user with this username exist.")
 
 
 class LoginSerializer(serializers.Serializer):

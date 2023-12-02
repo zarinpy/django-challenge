@@ -1,4 +1,5 @@
 from django.db import models
+
 from modules.common.models import TimestampedModelMixin
 
 
@@ -15,18 +16,10 @@ class Match(TimestampedModelMixin):
     stadium = models.ForeignKey(Stadium, on_delete=models.CASCADE)
     match_date = models.DateTimeField()
     opponents = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.opponents} at {self.stadium.name}"
-
-
-class Ticket(models.Model):
-    match = models.ForeignKey(Match, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    available_quantity = models.IntegerField()
-
-    def __str__(self):
-        return f"Ticket for {self.match.opponents}"
 
 
 class Seat(TimestampedModelMixin):
@@ -34,6 +27,7 @@ class Seat(TimestampedModelMixin):
     seat_number = models.CharField(max_length=10)
     row = models.CharField(max_length=5)
     section = models.CharField(max_length=20)
+    price = models.FloatField(default=100)
     is_reserved = models.BooleanField(default=False)
 
     def __str__(self):
@@ -48,10 +42,3 @@ class Reservation(models.Model):
 
     def __str__(self):
         return f"Reservation for {self.user.username} at {self.match.opponents}"
-
-
-class Basket(models.Model):
-    user = models.OneToOneField("User", on_delete=models.CASCADE)
-    tickets = models.ManyToManyField(Ticket)
-    seats = models.ManyToManyField(Seat)
-    created_at = models.DateTimeField(auto_now_add=True)
