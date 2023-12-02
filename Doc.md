@@ -12,9 +12,3 @@ Race conditions in ticket selling scenarios can occur when multiple users try to
 
 ### Throttling and Rate Limiting:
 - **Rate Limit API Endpoints:** Implement rate limiting on the purchase endpoints to control the number of requests a user can make within a certain time frame, preventing excessive requests and reducing the chance of race conditions.
-
-### Additional Recommendations:
-- **Error Handling:** Clearly communicate to users when a ticket they attempted to buy is no longer available due to concurrent purchases.
-- **Logging and Monitoring:** Implement logging mechanisms to monitor and track potential race conditions. This helps in identifying issues and implementing improvements.
-
-Combining these strategies can significantly reduce the likelihood of race conditions during ticket sales. It’s essential to test these mechanisms thoroughly to ensure they work effectively under various scenarios and loads.
